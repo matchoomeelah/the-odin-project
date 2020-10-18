@@ -6,8 +6,48 @@
     </head>
     <body>
         <script type="text/javascript">
+            const rockButton = document.createElement("button");
+            const paperButton = document.createElement("button");
+            const scissorsButton = document.createElement("button");
+
+            rockButton.textContent = "Rock";
+            paperButton.textContent = "Paper";
+            scissorsButton.textContent = "Scissors";
+
+            const body = document.querySelector("body");
+            const buttons = [rockButton, paperButton, scissorsButton];
+
+
+            const status = document.createElement("p");
+            const scoreRoundDiv = document.createElement("div");
+            const playerScoreDisplay = document.createElement("p");
+            const computerScoreDisplay = document.createElement("p");
+            const roundNumberDisplay = document.createElement("p");
+            status.textContent = "Select choice to begin";
+            playerScoreDisplay.textContent = "Player: 0";
+            computerScoreDisplay.textContent = "Computer: 0";
+            roundNumberDisplay.textContent = "Round: 1";
+
+            let scoreRoundDisplays = [playerScoreDisplay, computerScoreDisplay, roundNumberDisplay];
+                
+            scoreRoundDisplays.forEach(d => {
+                scoreRoundDiv.appendChild(d);
+            });
+
+            body.appendChild(scoreRoundDiv);
+            body.appendChild(status);
+
+            // Add buttons to DOM and add  click event listeners
+            buttons.forEach((btn) => {
+                body.appendChild(btn);
+                btn.addEventListener("click", (e) => {
+                    playRound(e.target.textContent.toLowerCase(), computerPlay());
+                })
+            });
+            
             let playerScore = 0;
             let computerScore = 0;
+            let roundNumber = 1;
 
 
             function computerPlay() {
@@ -21,70 +61,82 @@
                 }
             }
 
+            function updateValues(currentPlayerScore, currentComputerScore, currentRound, currentStatus) {
+                playerScoreDisplay.textContent = "Player: " + currentPlayerScore;
+                computerScoreDisplay.textContent = "Computer: " + currentComputerScore;
+                roundNumberDisplay.textContent = "Round: " + currentRound;
+                status.textContent = currentStatus;
+            }
+
             function playRound(playerSelection, computerSelection) {
+                let newStatus = "Hmmm something went wrong. Try again.";
                 if (playerSelection === "rock") {
                     switch (computerSelection) {
                         case "rock": 
-                            alert("Rocks clink together and rocks sink together. It's a draw. Replay round.");
-                            return -1;
+                            newStatus = "Rocks clink together and rocks sink together. It's a draw. Replay round.";
+                            break;
                         case "paper": 
                             computerScore++;
-                            alert("Paper covers Rock! Computer wins the round.");
-                            return 0;
+                            roundNumber++;
+                            newStatus = "Paper covers Rock! Computer wins the round.";
+                            break;
                         case "scissors": 
                             playerScore++;
-                            alert("Rock smashes Scissors! You win this round.");
-                            return 1;
+                            roundNumber++;
+                            newStatus = "Rock smashes Scissors! You win this round.";
+                            break;
                         default: 
-                            alert("Hmmm something went wrong.");
-                            return -1;
+                            break;
                     }
                 }
                 else if (playerSelection === "paper") {
                     switch (computerSelection) {
                         case "paper": 
-                            alert("Paper on paper. What are you a book? It's a draw. Replay round.");
-                            return -1;
+                            newStatus = "Paper on paper. What are you a book? It's a draw. Replay round.";
+                            break;
                         case "rock": 
                             playerScore++;
-                            alert("Paper covers Rock! You wins the round.");
-                            return 1;
+                            roundNumber++;
+                            newStatus = "Paper covers Rock! You win this round.";
+                            break;
                         case "scissors": 
                             computerScore++;
-                            alert("Scissors slices through paper! Computer wins this round.");
-                            return 0;
+                            roundNumber++;
+                            newStatus = "Scissors slices through paper! Computer wins this round.";
+                            break;
                         default: 
-                            alert("Hmmm something went wrong.");
-                            return -1;
+                            break;
                     }
                 }
                 else if (playerSelection === "scissors"){
                     switch (computerSelection) {
                         case "scissors": 
-                            alert("Don't just sit there scissoring. Gross. It's a draw. Replay round.");
-                            return -1;
+                            newStatus = "Don't just sit there scissoring. Gross. It's a draw. Replay round.";
+                            break;
                         case "rock": 
                             computerScore++;
-                            alert("Rock smashes Scissors! Computer wins this round.");
-                            return 1;
+                            roundNumber++;
+                            newStatus = "Rock smashes Scissors! Computer wins this round.";
+                            break;
                         case "paper": 
                             playerScore++;
-                            alert("Scissors slices through paper! You win this round.");
-                            return 0;
+                            roundNumber++;
+                            newStatus = "Scissors slices through paper! You win this round.";
+                            break;
                         default: 
-                            alert("Hmmm something went wrong.");
-                            return -1;
+                            break;
                     }
                 } 
-                else {
-                    return -1;
-                }
+                
+                updateValues(playerScore, computerScore, roundNumber, newStatus);
             }
 
 
 
-            function game() {
-                for (let i = 1; i <= 5; i++) {
+           // function game() {
+
+
+                /*for (let i = 1; i <= 5; i++) {
                     let playerSelection = prompt(`Round ${i}! Let's play. Rock, Paper, or Scissors?`);
                     if (playerSelection !== null) {
                         playerSelection = playerSelection.toLowerCase();
@@ -102,11 +154,17 @@
                     } else {
                         alert(`Score is Player: ${playerScore}  Computer: ${computerScore}`);
                     }
-                }
-            }
+                }*/
+            //}
 
-            game();
+            
+
+
+
+
+
+            //game();
         </script>
-        <
+        
     </body>
 </html>
