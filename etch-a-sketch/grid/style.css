@@ -1,0 +1,29 @@
+body {
+    background-color: bisque;
+}
+
+div#grid {
+    display: grid;
+    /*grid-template-columns: 20px 20px;*/
+    width: 500px;
+    height: 500px;
+}
+
+div.gridSquare {
+    width: 1fr;
+    height: 1fr;
+    /*background-color: #d7f4ea;*/
+    border: 1px solid black;
+}
+
+.green {
+    background-color: green;
+}
+
+.gray {
+    background-color: #d7f4ea;
+}
+
+#reset-button {
+    margin: 10px;
+}
